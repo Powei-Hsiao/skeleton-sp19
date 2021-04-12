@@ -1,5 +1,5 @@
 package creatures;
-
+import java.util.Random;
 import huglife.Creature;
 import huglife.Direction;
 import huglife.Action;
@@ -57,7 +57,9 @@ public class Plip extends Creature {
      * that you get this exactly correct.
      */
     public Color color() {
-        g = 63;
+        g = 96 * (int) Math.round(this.energy) + 63;
+        r = 99;
+        b = 76;
         return color(r, g, b);
     }
 
@@ -75,6 +77,10 @@ public class Plip extends Creature {
      */
     public void move() {
         // TODO
+        energy -= 0.15;
+        if (energy < 0) {
+            energy = 0;
+        }
     }
 
 
@@ -83,6 +89,10 @@ public class Plip extends Creature {
      */
     public void stay() {
         // TODO
+        energy += 0.2;
+        if (energy > 2) {
+            energy = 2;
+        }
     }
 
     /**
@@ -91,7 +101,9 @@ public class Plip extends Creature {
      * Plip.
      */
     public Plip replicate() {
-        return this;
+        Plip baby = new Plip(this.energy / 2);
+        this.energy = this.energy / 2;
+        return baby;
     }
 
     /**
@@ -114,15 +126,41 @@ public class Plip extends Creature {
         // TODO
         // (Google: Enhanced for-loop over keys of NEIGHBORS?)
         // for () {...}
-
-        if (false) { // FIXME
-            // TODO
+        for (Direction d : neighbors.keySet()) {
+            if (neighbors.get(d).name().equals("empty")) {
+                emptyNeighbors.add(d);
+            } else if (neighbors.get(d).name().equals("clours")){
+                anyClorus = true;
+            }
+        }
+        if (emptyNeighbors.isEmpty()) {
+            return new Action(Action.ActionType.STAY);
         }
 
         // Rule 2
         // HINT: randomEntry(emptyNeighbors)
 
+        if (energy >= 1.0) {
+            Random rand = new Random();
+            int x = rand.nextInt(emptyNeighbors.size());
+            for (int i = 0; i < x; i += 1) {
+                emptyNeighbors.removeFirst();
+            }
+            return new Action(Action.ActionType.REPLICATE, emptyNeighbors.getFirst());
+        }
+
         // Rule 3
+        if (anyClorus) {
+            Random rand = new Random();
+            double moveP = rand.nextInt(1);
+            if (moveP == 1) {
+                int x = rand.nextInt(emptyNeighbors.size());
+                for (int i = 0; i < x; i += 1) {
+                    emptyNeighbors.removeFirst();
+                }
+                return new Action(Action.ActionType.MOVE, emptyNeighbors.getFirst());
+            }
+        }
 
         // Rule 4
         return new Action(Action.ActionType.STAY);
