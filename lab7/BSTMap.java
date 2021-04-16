@@ -1,3 +1,5 @@
+import java.security.Key;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
@@ -102,9 +104,22 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V>{
         return root;
     }
 
+    /**
+     *  Returns a Set view of the keys contained in this map.
+     */
     @Override
     public Set<K> keySet() {
-        throw new UnsupportedOperationException();
+        Set<K> keys = new HashSet<>();
+        this.keySet(root, keys);
+        return keys;
+    }
+
+    private void keySet(Node root, Set keys) {
+        if (root != null) {
+            keys.add(root.key);
+            keySet(root.left, keys);
+            keySet(root.right, keys);
+        }
     }
 
     @Override
