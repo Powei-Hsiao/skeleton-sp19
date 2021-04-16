@@ -1,4 +1,6 @@
 import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
+
 import org.junit.Test;
 
 /** Tests by Brendan Hu, Spring 2015, revised for 2016 by Josh Hug */
@@ -24,7 +26,7 @@ public class TestBSTMap {
             b.put("hi" + i, 1+i);
             //make sure put is working via containsKey and get
             assertTrue( null != b.get("hi" + i) && (b.get("hi"+i).equals(1+i))
-                        && b.containsKey("hi" + i));
+            && b.containsKey("hi" + i));
         }
         assertEquals(455, b.size());
         b.clear();
