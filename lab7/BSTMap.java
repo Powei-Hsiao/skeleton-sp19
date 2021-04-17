@@ -122,9 +122,72 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V>{
         }
     }
 
+    /**
+     * Removes the mapping for the specified key from this map if present.
+     */
     @Override
     public V remove(K key) {
-        throw new UnsupportedOperationException();
+        V res = get(key);
+        if (res == null) {
+            return null;
+        }
+        root = remove(root, key);
+        size -= 1;
+        return res;
+    }
+
+    private Node remove(Node root, K key) {
+        if (root == null) {
+            return null;
+        }
+        int r = key.compareTo(root.key);
+        if (r > 0) {
+            root.right = remove(root.right, key);
+        } else if (r < 0) {
+            root.left = remove(root.left, key);
+        } else if (r == 0) {
+            if (root.left == null && root.right ==null) {
+                return null;
+            } else if (root.left != null && root.right != null) { // Remove min node from right hand side.
+                Node temp = root;
+                root = minNode(temp.right);
+                root.right = removeMin(temp.right);
+                root.left = temp.left;
+            } else {
+                if (root.left == null) {
+                    return root.right;
+                } else {
+                    return root.left;
+                }
+            }
+        }
+        return root;
+    }
+
+    /**
+     * Return min Node from parent node.
+     * @param temp
+     * @return
+     */
+    private Node minNode(Node temp) {
+        if (temp.left == null) {
+            return temp;
+        } else {
+            return minNode(temp.left);
+        }
+    }
+
+    /**
+     * Find min Node and remove it from parent node.
+     * @param temp
+     * @return
+     */
+    private Node removeMin(Node temp) {
+        if (temp.left == null) {
+            return temp.right;
+        }
+        temp.left = removeMin(temp.left);
+        return temp;
     }
 
     @Override
