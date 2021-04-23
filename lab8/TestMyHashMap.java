@@ -140,6 +140,18 @@ public class TestMyHashMap {
         assertEquals(studentIDs.get("evil alan"), studentIDs.get("alan"));
     }
 
+    @Test
+    public void testIterator() {
+        MyHashMap<String, String> dictionary = new MyHashMap<>();
+        dictionary.put("a", "1");
+        dictionary.put("b", "2");
+        dictionary.put("c", "3");
+
+        for (String s : dictionary.keySet()) {
+            System.out.println(s);
+        }
+    }
+
     public static void main(String[] args) {
         jh61b.junit.TestRunner.runTests(TestMyHashMap.class);
     }

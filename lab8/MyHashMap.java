@@ -159,7 +159,7 @@ public class MyHashMap<K, V> implements Map61B<K, V>{
 
     @Override
     public Iterator<K> iterator() {
-        return null;
+        return keySet.iterator();
     }
 
     @Override
