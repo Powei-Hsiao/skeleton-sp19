@@ -246,4 +246,17 @@ public class BST<Key extends Comparable<Key>> {
     private boolean isEmpty() {
         return size() == 0;
     }
+
+    public double avgDepth() {
+        return (double) searchLength(root, 0) / this.size();
+    }
+    /**
+     * @https://github.com/ZTong1201/Java/blob/master/lab/clab7/BST.java
+     */
+    private int searchLength(Node node, int depth) {
+        if (node == null) {
+            return 0;
+        }
+        return depth + searchLength(node.left, depth +1) + searchLength(node.right, depth + 1);
+    }
 }

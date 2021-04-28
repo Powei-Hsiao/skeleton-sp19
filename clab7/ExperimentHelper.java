@@ -15,7 +15,11 @@ public class ExperimentHelper {
      *  N = 8, OIPL: 13
      */
     public static int optimalIPL(int N) {
-        return 0;
+        int res = 0;
+        for (int i = 1; i < N + 1; i += 1) {
+            res += (int) (Math.log(i) / Math.log(2));
+        }
+        return res;
     }
 
     /** Returns the average depth for nodes in an optimal BST of
@@ -27,6 +31,18 @@ public class ExperimentHelper {
      * @return
      */
     public static double optimalAverageDepth(int N) {
-        return 0;
+        return (double) optimalIPL(N) / N;
+    }
+
+    public static void randomlyDelete(BST bst) {
+        bst.deleteTakingSuccessor(bst.getRandomKey());
+    }
+
+    public static void randomlyInsert(BST bst, double rand) {
+        bst.add(rand);
+    }
+
+    public static void randomlyDeleteBoth(BST bst) {
+        bst.deleteTakingRandom(bst.getRandomKey());
     }
 }
