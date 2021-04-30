@@ -93,6 +93,11 @@ public class ArrayHeapMinPQ<T> implements ExtrinsicMinPQ<T>{
         return res;
     }
 
+    /**
+     * Change priority of specific item in the min PQ.
+     * @param item
+     * @param priority
+     */
     @Override
     public void changePriority(T item, double priority) {
         if (!contains(item)) {

@@ -107,14 +107,14 @@ public class ArrayHeapMinPQTest {
         for (int i = 0; i < 100000; i += 1) {
             pq1.add(i, i);
         }
-        System.out.println("100,000 items:\n" + "Total time elapsed: " + pq1sw.elapsedTime() +  " seconds.");
+        System.out.println("ArrayPQ add 100,000 items:\n" + "Total time elapsed: " + pq1sw.elapsedTime() +  " seconds.");
 
 
         Stopwatch pq2sw = new Stopwatch();
         for (int i = 0; i < 1000000; i += 1) {
             pq2.add(i, i);
         }
-        System.out.println("1,000,000 items:\n" + "Total time elapsed: " + pq2sw.elapsedTime() +  " seconds.");
+        System.out.println("ArrayPQ add 1,000,000 items:\n" + "Total time elapsed: " + pq2sw.elapsedTime() +  " seconds.");
     }
 
     @Test
